@@ -1,4 +1,3 @@
-
 class List extends React.Component {
 	constructor() {
 		super();
@@ -11,17 +10,20 @@ class List extends React.Component {
 		}
 	}
 
-	addItem(e) {
+	addItem() {
 		if (this.state.validated) {
 			let list = this.state.list;
-			list.push(this.state.word);
+			list.push({
+				word: this.state.word,
+				date: moment().format('DD MMM YYYY, h:mm a')
+			});
 			this.setState({list: list});
 			this.setState({word: ""});
 			this.setState({typed: false})
 		}
 	}
 
-	removeItem(e, index) {
+	removeItem(index) {
 		let list = this.state.list;
 		list.splice(index, 1);
 		this.setState({list: list});
@@ -38,15 +40,22 @@ class List extends React.Component {
 		this.setState({typed: true})
 	}
 
+	checkKey(e) {
+		if(e.keyCode == 13){
+			this.addItem();
+		}
+	}
+
 	render() {
 		// render the list with a map() here
 
 		let listItems = this.state.list.map((item, index) => {
 			return (
 				<li className="list-group-item" key={index}>
-					<p>{index + 1}. {item}</p>
-					<div className="btn btn-danger" onClick={(e) => {
-						this.removeItem(e, index)
+					<p>{index + 1}. {item.word}</p>
+					<p>Posted on {item.date}</p>
+					<div className="btn btn-danger" onClick={() => {
+						this.removeItem(index)
 					}}>Delete
 					</div>
 				</li>);
@@ -62,12 +71,13 @@ class List extends React.Component {
 		return (
 			<div className="wrapper">
 				<h2 className="mb-5">To-Do List</h2>
-				<input className="form-control" onChange={(e) => {
-					this.changeHandler(e)
-				}} value={this.state.word}/>
-				<button className="my-3 btn btn-primary" onClick={(e) => {
-					this.addItem(e)
-				}}>add item
+				<input className="form-control"
+			        onChange={(e) => {this.changeHandler(e)}}
+			        onKeyDown={(e)=>{this.checkKey(e)}}
+					value={this.state.word}/>
+				<button className="my-3 btn btn-primary" onClick={() => {
+					this.addItem()
+				}}>Add item
 				</button>
 				{errorMessage}
 				<div className="list mt-5">
