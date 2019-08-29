@@ -1,7 +1,7 @@
 {
-  "name": "tweet-react",
+  "name": "todo-react",
   "version": "1.0.0",
-  "description": "Recreate a twitter timeline using react.",
+  "description": "Create a todo list using react.",
   "main": "tweets.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "moment": "^2.24.0"
   }
 }
