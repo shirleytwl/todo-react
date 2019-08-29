@@ -7,7 +7,10 @@ class List extends React.Component {
 			list: [],
 			validated: false,
 			typed: false
-		}
+		};
+		this.addItem = this.addItem.bind(this);
+		this.changeHandler = this.changeHandler.bind(this);
+		this.checkKey = this.checkKey.bind(this);
 	}
 
 	addItem() {
@@ -72,12 +75,10 @@ class List extends React.Component {
 			<div className="wrapper">
 				<h2 className="mb-5">To-Do List</h2>
 				<input className="form-control"
-			        onChange={(e) => {this.changeHandler(e)}}
-			        onKeyDown={(e)=>{this.checkKey(e)}}
+			        onChange={this.changeHandler}
+			        onKeyDown={this.checkKey}
 					value={this.state.word}/>
-				<button className="my-3 btn btn-primary" onClick={() => {
-					this.addItem()
-				}}>Add item
+				<button className="my-3 btn btn-primary" onClick={this.addItem}>Add item
 				</button>
 				{errorMessage}
 				<div className="list mt-5">
