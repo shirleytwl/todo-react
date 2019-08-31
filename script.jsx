@@ -51,6 +51,7 @@ class TodoApp extends React.Component {
 		this.checkItem = this.checkItem.bind(this);
 		this.editItem = this.editItem.bind(this);
 		this.updateItem = this.updateItem.bind(this);
+		this.removeItem = this.removeItem.bind(this);
 	}
 	addItem(e) {
 		e.preventDefault();
@@ -124,6 +125,11 @@ class TodoApp extends React.Component {
 			editing: false
 		});
 	}
+	removeItem(index) {
+		let list = this.state.list;
+		list.splice(index, 1);
+		this.setState({list: list});
+	}
 	render() {
 		return (
 			<div className="container-fluid my-5">
@@ -145,7 +151,8 @@ class TodoApp extends React.Component {
 							list={this.state.list}
 							checkItem={this.checkItem}
 							editItem={this.editItem}
-							updateItem={this.updateItem}>
+							updateItem={this.updateItem}
+							removeItem={this.removeItem}>
 						</ItemList>
 					</div>
 					<div className="col">
@@ -153,7 +160,8 @@ class TodoApp extends React.Component {
 							list={this.state.list}
 							checkItem={this.checkItem}
 							editItem={this.editItem}
-							updateItem={this.updateItem}>
+							updateItem={this.updateItem}
+							removeItem={this.removeItem}>
 						</DoneList>
 					</div>
 				</div>
@@ -192,7 +200,8 @@ class ItemList extends React.Component {
 						index={index}
 						checkItem={this.props.checkItem}
 						editItem={this.props.editItem}
-						updateItem={this.props.updateItem}>
+						updateItem={this.props.updateItem}
+						removeItem={this.props.removeItem}>
 					</TodoItem>
 				)
 			}
@@ -220,7 +229,8 @@ class DoneList extends React.Component {
 						index={index}
 						checkItem={this.props.checkItem}
 						editItem={this.props.editItem}
-						updateItem={this.props.updateItem}>
+						updateItem={this.props.updateItem}
+						removeItem={this.props.removeItem}>
 					</TodoItem>
 				)
 			}
@@ -271,7 +281,7 @@ class TodoItem extends React.Component {
 						<i className='bx bxs-edit-alt' onClick={() => {this.props.editItem(index)}}></i>
 					</div>
 					<div className="col-1">
-						<i className='bx bxs-trash-alt'></i>
+						<i className='bx bxs-trash-alt' onClick={() => {this.props.removeItem(index)}}></i>
 					</div>
 				</div>
 			</li>
